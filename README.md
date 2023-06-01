@@ -397,6 +397,24 @@ class User < ActiveRecord::Base
 end
 ```
 
+Logging encrypted attributes as `[FILTERED]` can be disabled with the `encrypted_attrs_filter_enabled` config:
+
+```ruby
+# config/initializers/audited.rb
+
+Audited.config do |config|
+  config.encrypted_attrs_filter_enabled = false
+end
+```
+
+To preserve encryption of logged values, `audited_changes` itself can be encrypted:
+
+```ruby
+class CustomAudit < Audited::Audit
+  encrypts :audited_changes
+end
+```
+
 ### Custom `Audit` model
 
 If you want to extend or modify the audit model, create a new class that
