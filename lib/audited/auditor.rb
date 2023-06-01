@@ -174,7 +174,7 @@ module Audited
       def audited_attributes
         audited_attributes = attributes.except(*self.class.non_audited_columns)
         audited_attributes = redact_values(audited_attributes)
-        audited_attributes = filter_encrypted_attrs(audited_attributes)
+        audited_attributes = filter_encrypted_attrs(audited_attributes) if Audited.encrypted_attrs_filter_enabled
         normalize_enum_changes(audited_attributes)
       end
 
@@ -255,7 +255,7 @@ module Audited
         end
 
         filtered_changes = redact_values(filtered_changes)
-        filtered_changes = filter_encrypted_attrs(filtered_changes)
+        filtered_changes = filter_encrypted_attrs(filtered_changes) if Audited.encrypted_attrs_filter_enabled
         filtered_changes = normalize_enum_changes(filtered_changes)
         filtered_changes.to_hash
       end

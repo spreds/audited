@@ -10,7 +10,8 @@ module Audited
       :current_user_method,
       :ignored_attributes,
       :max_audits,
-      :store_synthesized_enums
+      :store_synthesized_enums,
+      :encrypted_attrs_filter_enabled
     attr_writer :audit_class
 
     def audit_class
@@ -38,6 +39,7 @@ module Audited
   @current_user_method = :current_user
   @auditing_enabled = true
   @store_synthesized_enums = false
+  @encrypted_attrs_filter_enabled = true
 end
 
 require "audited/auditor"
